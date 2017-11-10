@@ -1,0 +1,72 @@
+http://flatuicolors.com/
+https://necolas.github.io/normalize.css/7.0.0/normalize.css
+http://www.responsivegridsystem.com/
+https://fonts.google.com/specimen/Lato?selection.family=Lato:100,300,300i,400
+http://ionicons.com/
+css-tricks.com/snippets/html/glyphs/
+https://daneden.github.io/animate.css/
+https://realfavicongenerator.net/
+	- put a . in front of every /: comes like "/resources/..." ; put "./resources/..."
+http://optimizilla.com/
+https://validator.w3.org/
+http://hpneo.github.io/gmaps/
+	- built upon google maps api: <script src="http://maps.google.com/maps/api/js"></script>
+	- The above script belongs above the gmaps script.
+www.godaddy.com 
+	- Buy domain and web hosting
+	- Once bought, type your full web address and at the end, append: "/cpanel" to login and manage web page. 
+	- Your website is in the 'public_html' folder
+	- FTP = File Transfer Protocol: transfer files onto the website. 
+	- brackets extension to transfer files: ftp-sinc plus (ONLY UPLOADS FILES THAT HAVE BEEN CHANGED!! AMAZING!)
+		* click configure FTP client in GoDaddy (bottom of page), copy+paste ftp server, and log-in via brackets. 
+	- Production version = on go daddy, Local version = on your computer
+www.google.com/analytics
+	- Admin tab: Add website -> copy script, add to very bottom of index.html. If multiple pages, you need to add to each html file.
+
+> Web dev blogs (to keep fresh with new design and dev trends):
+	- designmodo
+	- sidebar.io
+	- hey, designer!
+	- smashing magazine
+	- 1st web designer
+
+> What now?
+	- Redesign existing websites that are poorly designed
+	- Design a website for local charity
+	- Join design contests at 99design.com
+	- freelancer.com
+	- odesk
+	- elance
+
+
+'header' tags = tells google that stored information is important, and NOT just another div element.
+Responsive: website will work well on any device and resolution: easy to read w/o having to zoom in and out.
+Viewport = the dimensions of display relative to device resolution.
+
+<a tags>/buttons
+- link: how element looks in its normal state
+- visited: how element looks after it has been visited
+- active: how element looks when we click on the button
+- hover: how element looks when we hover over button
+
+<figure> and <figcaption> with an <img> inside <figure> tag to add captions to images.
+
+<span> appears inside a <p> tag to style particular text
+
+<input type="text" name="name" id="name" placeholder="Your name" required>
+- "required": browser will not send form without completing this field.
+
+TO MAKE A WEBSITE COMPATABLE FOR MULTIPLE BROWSERS: Extension in brackets: autoprefixer
+	> Prefix css3 properties
+		- Android: -webkit-
+		- Chrome: -webkit-
+		- Firefox: -moz-
+		- Internet Explorer: -ms-
+		- iOS: -webkit-
+		- Opera: -o-
+		- Safari: -webkit 
+	> 
+		-webkit-border-radius: 25px;
+		-moz-border-radius: 25px;
+		-o-border-radius: 25px;
+		border-radius: 25px;

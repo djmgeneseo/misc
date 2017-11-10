@@ -1,0 +1,43 @@
+Class name can be used on multiple elements as an attribute in HTML
+Particular ID name can only be used once on one element as an attribute
+
+Ctrl-e is magical. 
+
+Convention says you should use classes more than id's, and to overall avoid using ID's.
+	- If using id, begin css element with '#' instead of '.'
+	ex)  - class:  .main-text
+		 - id:     #main-text
+
+
+other elements
+______
+margin
+______
+padding
+______
+border
+content
+______
+
+in css:
+
+* {
+	//all elements will be affected.
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+.container {
+	width: 1140px;
+	margin-left: auto; <---- Ensures the content of div remains centered, irrespective of window size.
+	margin-right: auto;
+}
+
+FOR ABSOLUTE POSITIONING:
+- Parent MUST HAVE position: relative.
+
+border-radius: 50% = circular
+
+z-index: 9999;
+	- Vertical stacking of elements

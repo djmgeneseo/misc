@@ -1,0 +1,23 @@
+magnific popup
+tooltipster
+maplace
+typer
+onepagescroll
+
+Javascript file:
+found at: https://developers.google.com/speed/libraries/
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+// The background of h1 elements can be turned red simply by clicking on them
+$(document).ready(function() {
+    
+   $('h1').click(function() {
+       $(this).css('background-color','#ff0000');
+   })
+    
+    
+});
+
+Waypoints: trigger a function when we scroll to an element
+	- http://imakewebthings.com/waypoints/
+	- search for lib/jquery.waypoints.min.js

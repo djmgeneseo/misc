@@ -1,0 +1,88 @@
+RULES OF STYLE:
+>TYPOGRAPHY (*LATO typeface*)
+- 15-25px for body text
+- 60px h1, 32px h2. BIG TEXT? LOW FONT WEIGHT!!!!!
+- line spacing (vertical distance between lines) between 120 and 150% of font size
+- 45 to 90 (100? maybe...) characters per line
+- Sans-serif = clean, simple, neutral, modern
+	- sans-serif google fonts: Open Sans, Lato, Raleway, Monsterrat, PT Sans
+- Serif = traditional purposes, story telling, long readings
+	- serif google fonts: Cardo, Merriweather, PT Serif
+
+>COLORS [NEVER USE BLACK]
+- Use only one base color (Flat UI colors): turquoise, emerald, peter river, amethyst, wet 
+asphalt, green sea, nephritis, belize hole, wisteria, midnight blue, sun flower, carrot, 
+alizarin, clouds, concrete, orange, pumpkin, pomegranate, silver, asbestos
+- (www.0to255.com): Create darker and lighter colors of that color to create a color pallette.
+ Grey tones are not base, and can be used
+- Can also use color to draw attention: black and white everything else, pick color that 
+stands out, use it to draw attention. Green and white everything, but orange for important 
+functions like buttons and other widgets
+- Picking a color for a website means more then picking your favorite color and turning it into a design. It means picking the right color in order to get the desired response from your audience. Color really makes a difference. This happens because there are psychological effects behind each color:
+	*Red is a great color to use when power, passion, strength and excitement want to be transmitted. Brighter tones are more energetic and darker shades are more powerful and elegant.
+	*Orange draws attention without being as overpowering as red. It means cheerfulness and creativity. Orange can be associated with friendliness, confidence, and courage.
+	*Yellow is energetic and gives the feeling of happiness and liveliness. Also, it associates with curiosity, intelligence, brightness, etc.
+	*Green is the color of harmony, nature, life and health. Also, it is often associated with money. In design, green can have a balancing and harmonizing effect.
+	*Blue means patience, peace, trustworthiness, and stability. It is one of the most beloved colors, especially by men. It is associated with professionalism, trust and honor. That's actually why the biggest social networks use blue.
+	*Purple is traditionally associated with power, nobility and wealth. In your design, purple can give a sense of wisdom, royalty, nobility, luxury, and mystery.
+	*Pink expresses romance, passivity, care, peace, affection, etc.
+	*Brown is the color of relaxation and confidence. Brown means earthiness, nature, durability, comfort, and reliability.
+
+>IMAGES
+- Image-heavy websites convert better
+- Text over images! To do this, especially with bright images, OVERLAY IMAGE WITH a COLOR!!!
+COLOR GRADIENTS!!!! AHHH!! WHITE TEXT!!!!! Also, text boxes! Be creative with their color.
+- Blur image, and keep white text in the unfocused areas. 
+- Floor fade!!! increase visibility of text towards lower-end of page
+
+>ICONS
+- Features of the item you're selling
+- Steps to reach a goal
+- For actions and links: icons should be recognizable, and labeled
+- Icons shouldn't overpopulate your site; should be supporting role, two or three in a 
+horizontal row is nice, for instance.
+- Use icon fonts!!! Vector > Static = higher definition. 
+
+>WHITESPACE
+- White space is where there isn't any stuff; clean feel.
+- Ample whitespace between:
+	* Elements
+	* Groups of elements
+	* Website sections
+- Don't use too much, b/c whitespace and rob relationships between elements
+- Whitespace describes invisible relationships between the elements of your website
+- Whitespace defines the beginning and end of sections
+- Define hierarchy: 
+	define where you want audience to look first
+	flow that corresponds content's message
+	build flow with whitespace
+
+>USER INTERFACE
+- Presentation of a product
+- Focus on user experience
+- "It's not just what it looks like and feels like. Design is how it works." - Steve Jobs
+
+*** USE OTHER WEBSITES AS INSPIRATION! 
+ - Collect designs that you like
+ - understand everything about them
+ - why do they look good?
+ - what do these sites have in common?
+ - How were they built in HTML and CSS?
+
+16. When do you use px and when do you use %? I’m confused by this.
+
+	Okay, that is a very good question. So, we use px and % in different situations. We use percentages more for "layout" elements, which means elements that define the layout and that we want to change according to the screen width. Also, percentages are most useful for defining horizontal distances between elements, such as widths  or margin-left  or margin-right , not vertical distances, because responsive web design works with screen widths (horizontal). In other words, everything that we want to change based on the screen width when the screen becomes smaller, should be defined in %.
+
+	Also, font-sizes are always defined in %, except for the base font-size  defined for the body element, so that we can easily change font-sizes for smaller screen sizes. More about that later in Section 6.
+
+	We use px to define some margins and paddings, and sometimes to define smaller distances and distances that doesn't need to change when the screen changes. For the paddings, please note that we can only use px here thanks to box-sizing: border-box;  , which ensures that the box width (defined in %) always stays the same no matter how much padding we add inside of it.
+
+17. What’s the difference between relative and absolute positioning?
+
+	Relative positioning simply positions the elements relative to the other elements on the webpage. Elements just appear on the website in the order they are defined in the HTML document. You can use margins to relatively position elements, i.e. to create space between elements.
+
+	In absolute positioning, we can use the top , bottom , left  and right  properties to perfectly position an element inside its relatively positioned parent, wherever we want. This gives us a lot of control, which is extremely useful, and you will see examples of this throughout the course. We need to explicitly say that the parent has position: relative, otherwise the browser would not know where to position the absolute element.
+
+20. What’s the difference between the body selector and the universal selector (*)?
+
+	

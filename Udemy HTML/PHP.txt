@@ -1,0 +1,3 @@
+Client-side: runs in browser. Server-side: runs on server.
+	- client interacts with server
+Browser sends form data to php script which is on server. script then sends email and returns success code to browser.
