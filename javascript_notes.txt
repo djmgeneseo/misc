@@ -1,0 +1,79 @@
+
+// ********************************************
+// *********** HOUSTING **********
+
+// Functions 
+calculateAge(1965);
+
+function calculateAge(year) {
+  console.log(2016 - year);
+}
+
+// retirement(1965); //error!
+
+let retirement = function(year) {
+  console.log(65 - (2016-year));
+}
+
+// Variables
+//console.log(age); //error!
+// variable is read, but set to undefined. variables that DON'T have data yet will ALWAYS be set to undefined. So calling age before declaring it willyield "undefined".
+let age = 23;
+console.log(age);
+
+// ********************************************
+// *********** selecting html ***********
+
+dice = Math.floor(Math.random() * 6) + 1;
+document.querySelector(#current-1).textContent = dice;
+let x = document.querySelector('#score-0').textContent;
+console.log(x);
+
+document.querySelector('.dice').style.display = 'none';
+document.getElementById('score-0'); // is MUCH FASTER and EFFICIENT!!
+
+document.querySelector('.player-1-panel').classList.remove('active');
+document.querySelector('.player-0-panel').classList.add('active');
+
+	// is the same as:
+document.querySelector('.player-1-panel').classList.toggle('active');
+document.querySelector('.player-0-panel').classList.toggle('active');
+	// ASSUMING one player-x-panel HAS 'active' class and other does NOT have 'active' class
+
+// ********************************************
+// ********* event listener ***********
+
+function btn () {
+	
+}
+
+document.querySelector('.btn-roll').addEventListener('click',btn);
+
+// OR use an anonymous function (doesn't have a name and therefore cannot be used outside of this function)
+
+document.querySelector('.btn-roll').addEventListener('click',function() {
+	// 1. Random number
+	dice = Math.floor(Math.random() * 6) + 1; // top of page
+	
+	// 2. Display the result
+	let diceDOM = document.querySelector('.dice');
+	diceDom.style.display = block;
+	diceDom.src = 'dice-' + dice + '.png';
+	document.querySelector('.dice').style.display = 'block';
+
+	// 3. Display the result
+
+});
+
+
+// ********************************************
+// ************* Ternery operator
+	activeplayer === 0 ? activePlayer = 1 : activePlayer = 0;
+
+ // IS EQUIVALENT TO:
+	if(activePlayer === 0) {
+		activePlayer = 1;
+	} else {
+		activePlayer = 0;
+	}
+
