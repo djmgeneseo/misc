@@ -1,3 +1,24 @@
+EVERYTHING IS AN OBJECT (EXCEPT FOR PRIMITIVES: Numbers, Strings, Booleans, Undefined, Null)
+Class in javascript = constructor, or prototype 
+	- Want the Athlete constructor (class) to have properties and methods of Person constructor (class)? Then Athlete must INHERIT from Person, making Athlete the child.
+Inheritence: When an object has access to another object's properties AND methods
+	> PROTOTYPE: Inheritence works by way of prototypes.
+		- Prototype proterty of an object is where we put methods and properties that we want OTHER objects to inherit
+		- Any object created by the Person constructor will inherit the calculateAge() property.
+		- The Constructor's prototype property is NOT the prototype of the Constructor itself, it's the prototype of ALL instances that are created through it. 
+		- The Prototype is NOT the prototype of the Person object itself, but of ALL instances that are created through Person. The Person's prototype property is the Prototype of John.
+		EVERY OBJECT IS PART OF AN EVEN BIGGER CONSTRUCTOR, KNOWN AS THE OBJECT OBJECT. Every object we create is an instance of the object constructor. These instances have prototype proterties and methods. The Person object can use them, and the john object of the Person object can use them. 
+		- This is known as the PROTOTYPE CHAIN. 
+			- When trying to access method on object (or protperty), JavaScript will first try to find the method on object. If it cannot find it, it will look at object's prototype, which is the prototype property of its parent. When there is no more prototypes to look at, and the method/property STILL cannot be found - even in the Object Object - , since null is the final link the prototype chain, undefined is the return value.
+	- Each and every JavaScript object has a prototype property, which makes inheritence possible.
+DRY principle: Don't Repeat Yourself
+
+QUERYSELECTOR ALL:
+// Get all <p> elements in the document
+var x = document.querySelectorAll("p"); 
+
+// Set the background color of the first <p> element
+x[0].style.backgroundColor = "red"; 
 
 // ********************************************
 // *********** HOUSTING **********
