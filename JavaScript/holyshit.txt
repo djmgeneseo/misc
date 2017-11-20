@@ -1,0 +1,47 @@
+
+// WHOLE THING = IIFE (Immediately Invoked Function Expression)
+
+var budgetController = (function() {
+	// Private variable x
+	var x = 23;
+
+	// Private function add
+	var add = function(a) {
+		return x + a;
+	}
+
+	// ASSIGNING PROPERTY TO VARIABLE budgetController:
+	// publicTest is a public method b/c it is set as a property of variable budgetController via return.
+	
+	return {
+		publicTest: function(b) {
+			//console.log(add(b));
+			return add(b);
+		}
+	}
+})();
+
+/* NOTES
+*	- Private variables are effectively gone b/c of IIFE; however, because of closure, the 
+* method publicTest (which is a property of variable budgetController) still has access to the 
+* variables and functions of the anonymous function THAT IS the IIFE. 
+*	- Properties x and add are in the closure, and therefore ONLY publicTest can access them.
+*/
+
+var UIController = (function() {
+	
+	// Some code
+
+})();
+
+var controller = (function(budgetCtrl, UICtrl) {
+	
+	var budgetCtrl.publicTest(5);
+
+	return {
+		anotherPublic: function() {
+			console.log(z);
+		}
+	}
+
+})(budgetController, UIController);
