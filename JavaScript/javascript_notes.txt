@@ -13,7 +13,9 @@ Inheritence: When an object has access to another object's properties AND method
 	- Each and every JavaScript object has a prototype property, which makes inheritence possible.
 DRY principle: Don't Repeat Yourself
 
-QUERYSELECTOR ALL:
+// ******************************************** 
+ - document.querySelector() 
+ 	- var el = document.querySelector(".myclass");
 // Get all <p> elements in the document
 var x = document.querySelectorAll("p"); 
 
