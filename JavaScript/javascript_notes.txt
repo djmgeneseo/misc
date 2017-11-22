@@ -22,6 +22,8 @@ var x = document.querySelectorAll("p");
 // Set the background color of the first <p> element
 x[0].style.backgroundColor = "red"; 
 
+element.classList.toggle("mystyle");
+
 // ********************************************
 // *********** HOUSTING **********
 
