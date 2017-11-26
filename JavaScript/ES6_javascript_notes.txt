@@ -1,0 +1,724 @@
+//////////////////////////////////////////////////////
+// ************** ES6 TRANSPILER *******************
+// ****************************************************
+	
+	// Transpile code from ES6 to ES5
+	// Note: Only features friendly to ES5 will be transpiled; ex) data structure Map that's new in ES6 will NOT be transpiled into ES5.
+	// JUST KIDDING!! Polyfill is a function written in ES5 that will function as the Map written in ES6. Polyfill is located in a different file, that we can include into our project. Includes a minified version!
+	// Include Polyfill file into html BEFORE the main - and now transpiled - javascript file.
+
+/*
+	babeljs.io = popular transpiler
+		1. Nodejs.org
+		2. Download LTS
+		3. Type 'npm -v'
+		4. Type 'dir' (ls for mac) to check current directories
+		5. Type 'cd' to change directory
+		6. Find directory
+		7. Locally install packages to chosen development folder
+			> npm install --save-dev babel-cli babel-preset-es2015 babel-polyfill
+		8. Hit enter
+*/	
+
+/*
+	Babel will ONLY transpile code that is NOT commented out!!!!
+		- To run packages: Open bash console again and, while in development directory, type:
+			> ./node_modules/.bin/babel --presets es2015 script.js --out-file script-transpiled.js
+		- script.js is the file it should transpile, and the output file is set to script-transpiled.js
+		- 
+*/
+
+
+//////////////////////////////////////////////////////
+// ************** VARS VS LETS *******************
+// ****************************************************
+
+// let AND const are block scoped (limited to within a pair of braces {} )
+// var = function scoped (limited to within any new function declaration)
+
+// WON'T WORK
+function() {
+	if() {
+		let firstName = 'david';
+	}
+
+	console.log(firstName);
+}
+
+// WORKS
+function () {
+	if() {
+		var firstName = 'david';
+	}
+
+	console.log(firstName)
+
+}
+
+// *********************************
+// The 'i' variable outside of the for loop is a completely different variable from that within the for loop.
+let i = 23
+for(let i = 0; i < 5; i++) {
+	console.log(i);
+}
+
+// output: 0,1,2,3,4
+
+console.log(i);
+// output: 23
+
+// *********************************
+// ERROR: can only use variable AFTER we declare it and define it
+console.log(firstName);
+let firstName;
+
+// UNDEFINED: variables are loaded in as undefined
+console.log(firstName);
+var firstName;
+
+//////////////////////////////////////////////////////
+// ************* BLOCKS AND IFFEs ********************
+// ****************************************************
+
+// These are IFFEs; ERROR, a and b are not defined. And c for next example.
+// ES6
+{
+	const a = 1;
+	let b = 2;
+}
+console.log(a+b);
+
+// ES5
+(function() {
+	var c = 3;
+})();
+
+console.log(c);
+
+// *********************************
+// HOWEVER, THIS SNIPPIT WILL WORK FOR C!!!!! var = function scoped, unlike let and const variables
+{
+	const a = 1;
+	let b = 2;
+	var c = 3;
+}
+console.log(c);
+
+//////////////////////////////////////////////////////
+// ************* STRINGS ********************
+// ******************************************
+
+let firstName = 'John';
+let lastName = 'Smith';
+const yearOfBirth = 1990;
+
+function calcAge(year) {
+	return 2016 - year;
+}
+
+// ES5
+console.log('This is ' + firstName + '' + lastName + '. He was born in ' + yearOfBirth + '. Today, he is ' + calcAge(yearOfBirth) + ' years old.');
+
+// ES6 - Template Literals
+console.log(`This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today, he is ${calcAge(yearOfBirth)} years old.`);
+
+const n = `${firstName} ${lastName}`;
+console.log(n.startsWith('J'));
+console.log(n.endsWith('th'));
+console.log(n.includes(' '));
+console.log(firstName.repeat(5));
+console.log(`${firstName} `.repeat(5));
+
+//////////////////////////////////////////////////////
+// ************* ARROW FUNCTIONS ********************
+// ******************************************
+
+const years = [1990, 1965, 1982, 1937];
+
+// ES5 - callback function with one argument 'el'
+var ages5 = years.map(function(el) {
+	return 2016 - el;
+});
+
+console.log(ages5);
+
+// ES6 - callback function with one argument 'el'
+let ages6 = years.map(el => 2016 - el);
+
+console.log(ages5);
+
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016-el}.`);
+console.log(ages6);
+
+ages6 = years.map((el, index) => {
+	const now = new Date().getFullYear();
+	const age = now - el;
+	return 'Age element ${index + 1}: ${age}.'
+});
+console.log(ages6);
+
+// *********************************
+// ADVANTAGE: Arrow functions do NOT have a 'this' keyword. They share the surrounding 'this' keyword. They use the 'this' keyword of the thing they were written in. USE TO PRESERVE 'this' WORD!!!!!
+
+// ES5 - 'this' refers to the window, because the anonymous callback function belongs to the window. This is because the callback function does NOT belong to the object, but is instead its own function, and ordinary functions (NOT methods) belong to the global scope. Some say this is a bug in javascript, others say this is how it should behave.
+
+var box5 = {
+	color: 'green',
+	position: 1,
+	clickMe: function() {
+		document.querySelector('.green').addEventListener('click', function() {
+			var str = 'This is a box number ' + this.position + ' and it is ' + this.color;
+			alert(str);
+		});
+	}
+}
+box5.clickMe();
+
+// FIX:
+var box5 = {
+	color: 'green',
+	position: 1,
+	clickMe: function() {
+		var self = this;
+		document.querySelector('.green').addEventListener('click', function() {
+			var str = 'This is a box number ' + self.position + ' and it is ' + self.color;
+			alert(str);
+		});
+	}
+}
+box5.clickMe();
+
+// ES6 - arrow shares the 'this' context with its surroundings. Therefore, the 'this' in the callback function refers to the object its located in. AKA, 'this' is working normally...or as it should in an object method.
+const box6 = {
+	color: 'green',
+	position: 1,
+	clickMe: function() {
+		
+		document.querySelector('.green').addEventListener('click', () => {
+			let str = 'This is a box number ' + self.position + ' and it is ' + self.color;
+			alert(str);
+		});
+	}
+}
+box6.clickMe();
+
+// BUG: using arrow function at clickMe method definition causes the lexical 'this' keyword with its surroundings, which is the global object window.
+
+const box6 = {
+	color: 'green',
+	position: 1,
+	clickMe: () => {
+		
+		document.querySelector('.green').addEventListener('click', () => {
+			let str = 'This is a box number ' + self.position + ' and it is ' + self.color;
+			alert(str);
+		});
+	}
+}
+box6.clickMe();
+
+// *********************************
+
+function Person(name) {
+	this.name = name;
+}
+
+// ES5 - 'this.name' does NOT point to friends object, but instead points to global object, because the scope of the callback function is NOT the same as scope of method. 
+
+Person.prototype.myFriends5 = function(friends) {
+	
+	var arr = friends.map(function(el) {
+		return this.name + ' is friends with ' + el;
+	});
+
+	console.log(arr);
+}
+
+var friends = ['Bob', 'Jane', 'Mark'];
+new Person('John').myFriends5(friends);
+
+// FIX - '.bind(this)' b/c it is outside of the callback function and inside the scope of the method.
+
+Person.prototype.myFriends5 = function(friends) {
+	
+	var arr = friends.map(function(el) {
+		return this.name + ' is friends with ' + el;
+	}.bind(this));
+
+	console.log(arr);
+}
+
+var friends = ['Bob', 'Jane', 'Mark'];
+new Person('John').myFriends5(friends);
+
+// ES6 - the surroundings of this.name belongs to the callback function's surroundings, which is the method. So the arrow function preserves the this lexial scope that belongs to the method.
+
+Person.prototype.myFriends5 = function(friends) {
+	
+	var arr = friends.map(el => `${this.name} is friends with ${el}`;
+}
+var friends = ['Bob', 'Jane', 'Mark'];
+new Person('Mike').myFriends5(friends);
+
+
+//////////////////////////////////////////////////////
+// ************* DESTRUCTURING ********************
+// ******************************************
+
+// ES5
+var john = ['John', 26];
+var name = john[0];
+var age = john[1];
+
+// ES6
+const [name, age] = ['John', 26];
+console.log(name);
+console.log(age);
+
+const obj = {
+	firstName: 'John',
+	lastName: 'Smith'
+};
+
+const {firstName, lastName} = obj;
+console.log(firstName);
+console.log(lastName);
+
+const {firstName: a, lastName: b} = obj;
+console.log(a);
+console.log(b);
+
+function calcAgeRetirement(year) {
+	const age = new Date().getFullYear() - year;
+	return [age, 65 - age];
+}
+
+const [age, retirement] = calcAgeRetirement(1990);
+console.log(age);
+console.log(retirement);
+
+//////////////////////////////////////////////////////
+// ************* ARRAYS ********************
+// ******************************************
+
+// ES5
+const boxes = document.querySelectorAll('.box');
+var boxesArr5 = Array.prototype.slice.call(boxes);
+boxesArr5.forEach(function(curr) {
+	cur.style.backgroundColor = 'dodgerblue';
+});
+
+// ES6
+const boxes = document.querySelectorAll('.box');
+Array.from(boxes).forEach(cur => cur.style.backgroundColor = 'dodgerblue');
+
+// ******************************************
+// ES5
+for(var i = 0; i < boxesArr5; i++) {
+	if(boxesArr5[i].className === 'box blue') {
+		continue; // skip this iteration of the loop
+	}
+
+	boxesArr5[i].textContent = 'I changed to blue!';
+}
+
+// ES6 - combine forEach and for loop
+const boxesArr6 = Array.from(boxes);
+for (const cur of boxesArr6) {
+	if (cur.className.includes('blue')) {
+		continue;
+	}
+	cur.textContent = "I changed to blue!";
+}
+
+// ******************************************
+// ES5
+var ages = [12, 17, 8, 21, 14, 11];
+
+var full = ages.map(function(cur) {
+	return cur >= 18;
+});
+console.log(full);
+console.log(full.indexOf(true));
+console.log(ages[full.indexOf(true)]);
+
+// ES6
+// find index such that age is greater or equal to 18
+console.log(ages.findIndex(cur => cur >= 18));
+
+// Find age value 
+console.log(ages.find(cur => cur >= 18));
+
+//////////////////////////////////////////////////////
+// ************* SPREAD OPERATOR ********************
+// ******************************************
+// WORKS ON ALL KINDS OF LISTS (array, nodeList)
+
+function addFourAges(a,b,c,d) {
+	return a + b + c + d;
+}
+
+var sum1 = addFourAges(18,30,12,21);
+// result = 81
+console.log(sum1);
+
+// ES5
+var ages = {18, 30, 12, 21};
+// call addFourAges using each index of the above array as arguments for the function.
+var sum2 = addFourAges.apply(null, ages);
+// result = 81
+console.log(sum2);
+
+// ES6 - Spread operator. Expanding = '...' operator that spreads the array into its components.
+const sum3 = addFourAges(...ages);
+// result = 81
+console.log(sum3);
+
+const familySmith = ['John', 'Jane', 'Mark'];
+const familyMiller = ['Mary', 'Bob', 'Ann'];
+
+const bigFamily = [...familySmith, ...familyMiller];
+
+// result = ['John', 'Jane', 'Mark', 'Mary', 'Bob', 'Ann']
+console.log(bigFamily);
+
+// variables h and boxes are nodelists
+const h = document.querySelector('h1');
+const boxes = document.querySelectorAll('.box');
+
+const all = [h, ...boxes];
+
+// convert nodeList into an array
+Array.from(all).forEach(cur => cur.style.color = 'purple');
+
+
+//////////////////////////////////////////////////////
+// ************* REST PARAMETERS ********************
+// ******************************************
+// WORKS ON ALL KINDS OF LISTS (array, nodeList). OPPOSITE OF SPREAD OPERATOR!!!
+
+// ES5
+function isFullAge5() {
+	console.log(arguments);
+
+	// results = array-like-structure. Transform into array. 
+	var argsArray = Array.prototype.slice.call(arguments);
+
+	argsArr.forEach(function(cur) {
+		console.log((2016-cur)>=18);
+	});
+}
+
+isFullAge(1990, 1999, 1965)
+
+// ES6
+// transform arguments into an array and then pass it into the function.
+function isFullAge6(...years) {
+	// results = array
+	console.log(years);
+
+	// results = true (enter) false (enter) true
+	years.forEach(cur => console.log(2016 - cur) >= 18));
+}
+
+isFullAge6(1990, 1999, 1965);
+
+// ***********************************************************
+
+// ES5
+function isFullAge5(limit) {
+	console.log(arguments);
+
+	// we're using arguments variable to fillup array, but we DON'T want to store limit in that same array. So we set slice position to 1, so that the array is sliced from position 1.  
+
+	var argsArray = Array.prototype.slice.call(arguments, 1);
+
+	argsArr.forEach(function(cur) {
+		console.log((2016-cur)>= limit);
+	});
+}
+
+isFullAge(21, 1990, 1999, 1965);
+
+// ES6
+// Much more intuitive in ES6 to add an unkown amount of parameters with the initial parameter being one which we care about.
+function isFullAge6(limit, ...years) {
+	
+	// results = true (enter) false (enter) true
+	years.forEach(cur => console.log(2016 - cur) >= limit));
+}
+
+isFullAge6(16, 1990, 1999, 1965);
+
+
+//////////////////////////////////////////////////////
+// ************* DEFAULT PARAMETERS *****************
+// ******************************************
+
+// ES5
+function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+	
+	// tip: Ternery functinos must have else statement
+	// default parameters
+	lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+	nationality === undefined ? nationality = 'american' : nationality = nationality;
+
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.yearOfBirth = yearOfBirth;
+	this.nationality = nationality;
+}
+
+var john = new SmithPerson('John', 1990);
+// calling a function with less than expected parameters sets the rest of properties to undefined.
+
+var emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish');
+
+// ES6 - default parameters are built right into the constructor's parameters.
+function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'american') {
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.yearOfBirth = yearOfBirth;
+	this.nationality = nationality;
+}
+
+var john = new SmithPerson('John', 1990);
+var emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish');
+
+//////////////////////////////////////////////////////
+// ****** MAPS - NEW DATA STRUCTURE *************
+// ******************************************
+
+// in objects, had to use strings as keys to assign arbitrary values to.
+// Key value data structure. Can use anything as keys.
+// MAPS ARE BETTER THAN OBJECTS TO CREATE HASHMAPS B/C:
+// 		- Can use anything as keys
+// 		- Maps are iterable, and easy to loop through
+//		- Easy to get size of Map with size property
+// 		- Can easily add and remove data from a map
+
+// ES6
+const question = new Map();
+
+// first key of map
+question.set('question','What is the official name of the latest major JavaScript version?');
+
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+
+question.set('correct', 3);
+
+question.set(true, 'Correct anser :D');
+question.set(false, 'Wrong answer, please try again!');
+
+console.log(question.get('question'));
+console.log(question.size); // like arr.length for arrays
+
+// question.delete(4);
+
+question.has(4); // returns true or false
+
+
+// question.clear(); // clears all data in map
+
+// question.forEach((value, key) => console.log(`This is ${key}, and it's set to ${value}`));
+
+
+// question.entries() returns all key and value pairs.  
+// [key, value] store in two separate variables
+for (let [key, value] of question.entries()) {
+	question.forEach((value, key) => console.log(`This is ${key}, and it's set to ${value}`);
+}
+
+// ****
+
+for (let [key, value] of question.entries()) {
+	// Only execute if the key is a number; so only displays answers
+	if (typeof(key) === 'number') {
+		console.log(`Answer ${key}: ${value}`);
+	}
+}
+
+// const ans = prompt('Write the correct answer');
+
+// must convert ans into a number
+const ans = parseInt(prompt('Write the correct answer'));
+
+// 2 keys are named true and false booleans, so the below conditional will return the value of whichever of those two keys, depending on the condition's value.
+
+console.log(question.get(ans === question.get('correct')));
+
+//////////////////////////////////////////////////////
+// ****** CLASSES *************
+// ******************************************
+
+// Syntactic sugar b/c doesn't add any new functionality, and is simply easier to code (express) and to read.
+
+// Class definitions are NOT hoisted. To implement a class, you can only use it later in the code.
+// Can only add methods to classes, and NOT properties. 
+
+var Person5 = function(name, yearOfBirth, job) {
+	this.name = name;
+	this.yearOfBirth = yearOfBirth;
+	this.job = job;
+}
+
+Person5.prototype.calculateAge = function() {
+	var age = new Date().getFullYear() - this.yearOfBirth;
+	console.log(age);
+}
+
+var john5 = new Person5('John', 1990,'teacher');
+
+// ES6
+class Person 6 {
+
+	constructor (name, yearOfBirth, job) {
+		this.name = name;
+		this.yearOfBirth = yearOfBirth;
+		this.jobo = job;
+	}
+	
+	calculateAge() {
+		var age = new Date().getFullYear - this.yearOfBirth;
+		console.log(age);
+	}	
+
+	// static methods are attached to the class, but are not inherited by instances of a class (its objects)
+	static greeting() {
+		console.log('Hey there!');
+	}
+}
+
+const john6 = new Person6('John', 1990, 'teacher');
+
+// call a static method via class name, NOT object/instance variables
+Person6.greeting();
+
+
+//////////////////////////////////////////////////////
+// ****** INHERITANCE IN GENERAL AND IN CLASSES ******
+// ******************************************
+
+// ES5
+var Person5 = function(name, yearOfBirth, job) {
+	this.name = name;
+	this.yearOfBirth = yearOfBirth;
+	this.job = job;
+}
+
+Person5.prototype.calculateAge = function() {
+	var age = new Date().getFullYear() - this.yearOfBirth;
+	console.log(age);
+}
+
+// Need to remake properties of super class in subclass parameters
+var Athlete5 = function(name, yearOfBirth, job, olympicGames, medals) {
+	
+	Person5.call(this, name, yearOfBirth, job);
+	this.olympicGames = olympicGames;
+	this.medals = medals;
+}
+
+// Two constructors are connected
+Athlete5.prototype = Object.create(Person5.prototype);
+
+// Method specific to Athlete5 objects and NOT to Person5 objects
+Athlete5.prototype.wonMedal = function() {
+	this.medals++;
+	console.log(this.medals);
+}
+
+var johnAthlete5 = new Athlete5('John', 1990, 'Swimmer', 3, 10);
+
+// calculateAge is a method that belongs to the Person5 prototype
+johnAthlete5.calculateAge();
+
+// ES6
+class Person 6 {
+	constructor (name, yearOfBirth, job) {
+		this.name = name;
+		this.yearOfBirth = yearOfBirth;
+		this.jobo = job;
+	}
+	
+	calculateAge() {
+		var age = new Date().getFullYear() - this.yearOfBirth;
+		console.log(age);
+	}	
+}
+
+class Athlete6 extends Person6 {
+	// STILL need to remake properties of super class in subclass parameters
+	constructor() {
+		super(name, yearOfBirth, job);
+		this.olympicGames = olympicGames;
+		this.medals = medals;
+	}
+
+	wonMedal() {
+		this.medals++;
+		console.log(this.medals);
+	}
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'Swimmer', 3, 10);
+
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,29 @@
+// ****************************************************
+// ******** Event Delegation **********
+
+Attach event handler to element that is a parent to all items we are interested in
+
+Event bubbling: once a button is clicked, it's sent up through the parent elements.
+
+// ************************************
+// ******* ARRAY ************
+
+fieldsArr.forEach(function(current, index, array) {
+                current.value = "";
+            });
+
+// **************************
+// ******** OTHER ******
+
+DRY Principle: Don't Repeat Yourself
+.toggle adds or removes class
+
+// Get the element with id="myDIV" (a div), then get all elements inside div with class="example"
+var x = document.getElementById("myDIV").querySelectorAll(".example");  
+
+// Set the background color of the first element with class="example" (index 0) in div
+x[0].style.backgroundColor = "red"; 
+
 EVERYTHING IS AN OBJECT (EXCEPT FOR PRIMITIVES: Numbers, Strings, Booleans, Undefined, Null)
 Class in javascript = constructor, or prototype 
 	- Want the Athlete constructor (class) to have properties and methods of Person constructor (class)? Then Athlete must INHERIT from Person, making Athlete the child.
@@ -25,7 +51,7 @@ x[0].style.backgroundColor = "red";
 element.classList.toggle("mystyle");
 
 // ********************************************
-// *********** HOUSTING **********
+// *********** HOISTING **********
 
 // Functions 
 calculateAge(1965);
