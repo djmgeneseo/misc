@@ -1,0 +1,119 @@
+// ********************************************************
+// ************* EXECUTION CONTEXT = WRAPPER **************
+// ********************************************************
+	- global = not inside a function
+	- EVERYTHING is in global object; initial this points to global object, which is the Window
+
+var a = "Hello World!"
+	In console:
+	- a is same as window.a
+
+Hoisting: 
+	- Can call a function BEFORE it's defined and it'll work
+	- Can console.log(a) BEFORE it's defined and it'll output "Undefined"
+	- Recognizes where you've created variables and functions. Sets up Memory Space for them.
+		> placeholder = undefined. ALL variables are initially set to undefined
+		> functions sit in memory in their entirety
+	
+Undefined ==! not defined. Undefined is a value that means the value hasn't been set. 
+(a === undefined)
+
+CREATION PHASE: sets up memory space for variables and functions (in Global Execution Context, which is also created)
+	- Global Object
+	- 'this'
+	- Outer Environment
+	- Recognizes where you've created variables and functions. Sets up Memory Space for them.
+		> placeholder = undefined. ALL variables are initially set to undefined
+		> functions sit in memory in their entirety
+
+
+EXECUTION PHASE:
+	- Single Threaded, Synchronous Execution = Runs code line-by-line, one command at a time
+	- when a function is INVOKED, execution context of function is put onto the execution stack. Whatever is ONTOP of execution stack will be run.
+
+Invocation = call the function; run a function. Invoke function a with a();
+Variable environment = where variables live (relative to eachother)
+
+SCOPE CHAIN: Where a function or variable is located lexically (physically) determines its outer environment
+
+///////////////////////////////////
+	function b() {
+		console.log(myVar); // RESULTS IN 1!!! 
+	}
+
+	function c() {
+		var myVar = 22222;
+		b();
+	}
+
+	var myVar = 1;
+	c();
+
+	- function b() sits in global, so it looks at outer environment for myVar.
+	- Scope = where can I find variable
+	- each chain link = a lexical environment
+///////////////////////////////////
+	function c() {
+
+		function b() {
+			console.log(myVar); // RESULTS IN 22222!!! 
+		}	
+
+		var myVar = 22222;
+		b();
+	}
+
+	var myVar = 1;
+	c();
+	// b(); CANNOT CALL B b/c it is no longer located in global execution context.
+///////////////////////////////////
+	function c() {
+
+		function b() {
+			console.log(myVar); // RESULTS IN 1!!! Continues to look DOWN execution stack.
+		}	
+
+		b();
+	}
+
+	var myVar = 1;
+///////////////////////////////////
+
+Asynchronous events
+	- Other engines happening outside of the Javascript Engine in the Browser: http request, rendering engine, etc.
+	- Javascript ITSELF is synchronous; HOWEVER, other parts of the browser OTHER THAN the Javascript engine may run at the same time
+
+EVENT QUEUE:
+	- When browser has an event, the event is placed on queue. 
+	- Event IS ONLY LOOKED AT when the STACK IS EMPTY
+	- Looks to see if code should be run for event; creates execution context for that function/code
+	- Browser puts events onto event queue asynchronously; HOWEVER, Javascript can only handle those events synchronously
+	- JAVASCRIPT DEALS WITH ASYNCHRONOUS EVENTS IN A SYNCHRONOUS FASHION BY PLACING THEM ON THE EXECUTION STACK. The 'current' execution stack must finish before looking at the event queue. 
+
+(event loop = how event listener works to constantly check or 'listen' for event)
+
+
+// ********************************************************
+// ************* EXECUTION CONTEXT = WRAPPER **************
+// ********************************************************
+
+
+
+
+// ********************************************************
+// ************* EXECUTION CONTEXT = WRAPPER **************
+// ********************************************************
+
+
+
+
+// ********************************************************
+// ************* EXECUTION CONTEXT = WRAPPER **************
+// ********************************************************
+
+
+
+
+// ********************************************************
+// ************* EXECUTION CONTEXT = WRAPPER **************
+// ********************************************************
