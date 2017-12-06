@@ -1,0 +1,12 @@
+https://www.ntchosting.com/encyclopedia/databases/structured-query-language/
+
+SQL queries - a request for information. An operation that allows one to search the database for the information needed. Used to extract data from the database
+	- Executed with the SELECT statement
+		- can be more specific: 
+			- FROM: indicates the table where the search will be made
+			- WHERE: used to define rows, in which the search will be carried. All rows, for which the WHERE clause is not true, will be excluded
+			- ORDER BY: the only way to sort the results in SQL. Otherwise, they will be returned in a random order.
+
+		EX) SELECT * FROM
+			WHERE active
+			ORDER BY LastName, FirstName
