@@ -1,0 +1,33 @@
+https://www.ntchosting.com/encyclopedia/databases/structured-query-language/
+https://www.youtube.com/watch?v=NvrpuBAMddw
+https://www.youtube.com/watch?v=iKK3P11OCyM
+https://www.youtube.com/watch?v=FCtGbrou5DM
+
+SQL queries - a request for information. An operation that allows one to search the database for the information needed. Used to extract data from the database
+	- Executed with the SELECT statement
+		- can be more specific: 
+			- FROM: indicates the table where the search will be made
+			- WHERE: used to define rows, in which the search will be carried. All rows, for which the WHERE clause is not true, will be excluded
+			- ORDER BY: the only way to sort the results in SQL. Otherwise, they will be returned in a random order.
+
+		EX) SELECT * FROM
+			WHERE active
+			ORDER BY LastName, FirstName
+
+- Tables are like Excel Sheets
+- Normalization: separate into tables to reduce redundance 
+- Relational database: relation between tables. 
+	- Well designed databases enforces relationships that keeps data consistent and accurate
+
+Primary Key (column of a table)
+- Each table has its own primary key (column)
+- Each row has its unique value of a primary (table) key
+- Can use multiple columns as primary key for a table
+
+Foreign Key (column of a table)
+- A primary key from another table, used out of its table's context
+- Must have same data type
+
+One-to-many relationship
+- One primary key can "own" multiple rows on another table that it's foreign to. (EX. A unique customer can make many orders)
+- 
