@@ -1,0 +1,12 @@
+Apps are collections of connected components; there are four types:
+Activity, Service, Content Provider, Broadcast Provider. 
+
+The Android Manifest registers those components with the Android framework.
+
+Activity: responsible for most app/user interaction. Responsible for displaying the application user interface. Layouts and Windows are both involved with displaying the user interface.
+	- Single focused thing that the user can do
+	- Create window that app uses to draw and receive events from the system
+	- Stacks of activities. System displays previous activities on stack until the stack is empty, when it'll return to launcher (Look at Android Manifest.xml)
+	- Each activity has a layout, which provides system with detailed info about what to display, and how to display it
+	- An activity creates views to show the user information, and to let the user interact with the activity. 
+	- Views are a class in the Android UI framework. They draw and handle events. Activities determine what views to create, and where to put them, by reading an XML layout file. 

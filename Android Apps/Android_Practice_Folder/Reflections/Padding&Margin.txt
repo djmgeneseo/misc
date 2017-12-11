@@ -1,0 +1,12 @@
+Padding - Increases view boundaries
+	- handled by view itself
+	- android:padding="8dp" - 8dp from top, left, bottom, and right. 
+	- android:paddingLeft (etc.)
+
+Margin - creates an impenetrable barrier around a view, does NOT include view. Creates buffer zone between views in a view group.
+	- handled by ViewGroup
+	- TextView attributes: android:layout_margin="8dp"
+	- No other view can enter assigned region around it. 
+	- android:layout_marginLeft (etc.)
+
+Recommended padding/margin values: 8dp, OR 16dps in from left edge -> icon or w.e -> 72dps in from left. 16dps <- from right edge. 

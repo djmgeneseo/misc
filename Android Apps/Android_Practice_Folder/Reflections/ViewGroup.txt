@@ -1,0 +1,38 @@
+View groups are views that are not visible to the user.
+- Views inside view group are the children views. 
+
+Can only have one root view in xml document; that's why there's view groups.
+One root view should enclose other views.
+
+View Groups = LinearLayout and RelativeLayout
+Children Views = TextView and ImageView. Positioned based on parent. 
+
+Can position children views relative to each other or the parent view.
+
+'layout_' in view parameters (for children and parent views) are handled by the view group parent.
+
+'android:layout_weight="0"'
+ - https://developer.android.com/guide/topics/ui/layout/linear.html?utm_source=udacity&utm_medium=course&utm_campaign=android_basics
+ - Importance of child view. Default is 0. The higher the value of weight, the more space the view is given. 
+ - Parent gives more space to views.
+ - If we have 3 child TextViews: child: 1, child: 1, child: 8, then the parent allocates 1/10 of screen to one child, 1/10 to another child, and 8/10 to the other.
+- If an ImageView is wrap_content'ed and has a weight of 0, it'll only take-up as much space on the screen as is necessary to display the image. 
+- Can set height to 0dp and weight to 1 to extend height down of view down the page. Available space given to this textbox or w.e it is.
+- Can set width to 0dp and weight to 1 to extend length of view accross the page. Available space will be given to this textbox or w.e it is.
+
+LinearLayout can have a horizontal or vertial orientation.
+
+RelativeLayout - children may be positioned relateive to the top, bottom, left and right edges of the screen. 
+	- Attributes:
+		- android:layout_alignParentTop = "true" or "false"
+		- android:layout_alignParentBottom = ...
+		- android:layout_alignParentLeft = ...
+		- android:layout_alignParentRight = ...
+		
+		- android:layout_centerVertical = "true"
+		- android:layout_centerHorizontal = "true"
+	- Can mix-and-match alignments for a single view.
+
+	- Position child views relative to their sibling views (by using certain views as anchors)
+		- give views id's: android:id = "@+id/name_of_view"
+		- on a sibling view: android:layout_toLeftOf = "@id/name_of_view"

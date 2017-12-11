@@ -1,0 +1,18 @@
+			Relative Layout (ID:root)
+	Linear Layout (ID: Container)		Button (ID: btn)
+Image View	Text View (ID: txt)
+
+
+XML:
+<Relative Layout...>
+   <Linear Layout...>
+      <Image View.../>
+      <Text View.../>
+   </Linear Layout>
+   <Button.../>
+</Relative Layout>
+
+Java Code
+Button b = (Button)this.findViewById(R.id.btn);
+LinearLayout container = (linearLayout)this.findViewById(R.id.container);
+TextView t = (TextView) container.findViewById(R.id.txt); //shortcut, using LinearLayout variable named 'container'

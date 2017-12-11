@@ -94,10 +94,102 @@ EVENT QUEUE:
 
 
 // ********************************************************
-// ************* EXECUTION CONTEXT = WRAPPER **************
+// ************* TYPES AND OPERATORS **************
 // ********************************************************
 
+DYNAMIC TYPING:
+	- The Javascript engine decides your variable's type "on the fly." No keyword exists that tells what kind of data you intend to put inside of a variable
 
+6 PRIMITIVE TYPES: 
+	- A type of data that represents a single value; that is, not an object, because an object represents multiple values
+		1. undefined - lack of initialization (you should NOT set variable to this)
+		2. null - represents lack of initialization (you can set variable to this)
+		3. boolean - true or false
+		4. number - floating point number (there's always some decimals). There's only one 	
+			'number' type, and it's a floating number. NO integers.
+		5. string - A sequence of characters (both '' and "" can be used)
+		6. symbol - Used in ES6
+
+OPERATORS:
+	- A special function that is syntactically (written) different
+	- Generally take in two parameters and return one result
+	- addition opoerator is actually a function: + . 
+	- infix notation = 3 + 4; operator is between variables
+	- postfix = 3 4+
+
+Operator Precedence and Associativity
+	- which operator gets called first. Functions are called in order of precedence, and the higher precedence wins
+	- Associativity = what order operator functinos get called in: Left-To-Right or Right-To-Left when functions have the same precedence
+	HIGHER PRECEDENCE GETS CALLED FIRST: (lookup javascript precedence order cheat sheet)
+
+	var a = 2, b = 3. c = 4;
+
+	a = b = c;
+
+	console.log(a); // = 4
+	console.log(b); // = 4
+	console.log(c); // = 4
+
+COMPARISON OPERATORS:
+	console.log(3<2<2); // TRUE (?!?!?!?)
+		- two less than operators have the same precedence; associativity says it's left-to-right
+		- so 3<2 = false.
+		- (false) < 2; *COERCION*
+		- False is coerced into the number 0, so (false)<2 == 0<2 == true
+
+	Number(false) = 0
+	Number(undefined) = NaN
+	Number(null) = 0
+
+	null == 0 ==> false
+	null < 1 ==> true
+	"" == 0 ==> true
+	"" == false ==> true
+
+var a;
+
+// will attempt to coerce anything into a boolean
+if(a) {
+	console.log('Something is there.');
+}
+
+> nothing will happen
+----------------------
+HOWEVER: var a = 0; // 0 converts to false
+if(a) {
+	console.log('Something is there.');
+}
+
+> nothing will happen
+----------------------
+var a = "3";
+
+// will attempt to coerce anything into a boolean
+if(a) {
+	console.log('Something is there.');
+}
+
+> 'Something is there.'
+----------------------
+
+//in one js file: 
+var libraryName = "Lib 1";
+
+// in other js file:
+window.libraryName = window.libraryName || "Lib 2";
+
+// in app.js:
+console.log(libraryName); // Lib 1
+
+// ********************************************************
+// ************* DEFAULT VALUE **************
+// ********************************************************
+
+function greet() {
+	name = name || '<your name here>'; // name will return undefined, and || will always return the value that is most easily coerced into true; hence, 0 || 1 = 1;
+	console.log('Hello ' + name);
+
+}
 
 
 // ********************************************************

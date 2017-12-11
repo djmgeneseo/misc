@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ActivityPractice</string>
+    <string name="go_to">Send to/Show Next Activity</string>
+    <string name="second_activity">Second Activity</string>
+    <string name="main_activity_text">Main Activity</string>
+    <string name="back_to_main">Show Main Activity</string>
+</resources>

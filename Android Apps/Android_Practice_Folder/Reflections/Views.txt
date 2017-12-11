@@ -1,0 +1,106 @@
+Common Views: https://drive.google.com/file/d/0B5XIkMkayHgRMVljUVIyZzNmQUU/view
+Views are a class in the Android UI framework. They draw and handle events. Activities determine what views to create, and where to put them, by reading an XML layout file. 
+
+Two major categories of views
+	- UI components 
+	- Container Views
+
+> UI Components (which are classes):
+	1. TextView - creates text on the screen; generally non interactive text
+	2. EditText - creates a text input on the screen
+	3. ImageView - creates an image on the screen
+	4. Button - Creates a button on the screen
+	5. Chronometer - Creates a simple timer on screen
+(android.widget package contains a list of most of the UI view classes)
+
+Properties for views rae textSize and padding. Every view has properties, which can be found on documentation pages.
+	- android:text - simple property that makes TextView show the words
+	
+	- android:layout_width="200dp"
+	
+	- android:layout_height="300dp"
+	
+	- wrap_content - shrink view to wrap whatever is displayed inside the view. android:layout_width="wrap_content" - sets width of the view to be the exact width that the text "hello world" takes up on the screen. 
+	
+	- match_parent - android:layout_height="match_parent" expands the size of the view to be as large as the parent view which it is nested inside of.
+
+
+	- padding - determines space within boundaries of the view
+
+	- layout_margin - determines space outside the boundaries of the view.
+	(for padding and layout_margin: https://www.youtube.com/watch?v=k3IhoMdppwM)
+
+	
+> Container (or layout) View:
+	- extend from a class called ViewGroup. They're responsible for containing a group of views and determining where they are on screen; a view will be nested inside the tag of another view. 
+
+-----------------------------------------------------------
+
+After creating XML Layout, you need to sasociate it with your activity: onCreate method of the Activity using the method setContentView. You pass a reference to the layout file as R.layout.name_of_layout.
+	Example:
+
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+       // other code to setup the activity
+    }
+    // other code
+}
+
+What is R.layout? R is a class that is generated when the app is compiled. it creates constants that allow you to dynamically identify various contents of the res folder. More here: https://developer.android.com/guide/topics/resources/accessing-resources.html
+
+setContentView inflates the layout; Android reads your XML file and generates Java objects for each of the tags in your layout file. You can then edit these objects in Java code by calling methods on the Java objects. 
+
+> Formatting 
+
+<TextView
+	.....
+	..... />    (***Self-closing view***)
+
+	OR
+
+<LinearLayout   (***Opening tag***)
+	.....
+	..... >
+	
+	<TextView
+		...
+		... />
+
+</LinearLayout>   (***Closing tag***)
+
+> Attribute names and values
+
+<TextView
+	android:text="Happy Birthday!" />
+	^Attribute name     ^Attribute Value
+
+View elements such as TextView etc have default values; if you don't want the default values, then change them upon declaration.
+
+Touch targets should be at least 48 dp's (density independent pixels) tall and wide.
+
+> Text
+
+Hard-coding a value (assigning dp's) is generally regarded as bad practice. Use wrap_content to fix a view size to the minimum eneded to fit the text.
+	- So you'll want to change the text-size instead of the view size. android:textSize = "45sp" (scale independent pixels. Use these b/c they can scale according to user preference, as assigned in their device's settings) 
+	- Font Guidelines: https://material.io/guidelines/style/typography.html#typography-typeface
+	- https://plus.google.com/+AndroidDevelopers/posts/gQuBtnuk6iG: EX) 
+	android:textAppearance = "?android:textAppearanceLarge"
+
+> Color
+	*****Hexcode Color: https://material.io/guidelines/style/color.html#color-color-tool
+
+	- android:background="@android:color/darker_gray"
+					  ="#2196F3"
+		
+	- android:textColor="#AED581"
+
+> ImageView
+	- android:src="@drawable/cake" - '@' means we're referencing a resource in the app; drawable is the type. Don't need file extension, just the name of the file. This means you MUST add images into drawable folder. 
+	- android:scaleType="center" - centers image
+	or "centerCrop" 
+
+>EditText
+	- Text view where the user can edit the text

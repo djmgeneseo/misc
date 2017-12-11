@@ -1,0 +1,14 @@
+LinearLayout
+RelativeLayout
+GridLayout
+
+Most common: Frame Layout, Linear Layout, and Relative Layout.
+- descend from ViewGroup class
+- Frame is great for simple layouts, with a single view or list.
+- Linear is great for stacking vertically or horizontally. Good for proportions.
+- Relative is more complicated. Position relative to other views or boundaries of view
+
+AdapterView controls how views are laid out
+- Takes-in ListView or GridView; which is why it needs to be its own method. It can work with either view
+- Recycling views is a just-on-time compiling method which avoids loading and keeping loaded unecessary views.
+- 

@@ -1,0 +1,286 @@
+-----------------------------------------
+-- setup first db
+-----------------------------------------
+
+create database mytestdb
+
+
+use mytestdb
+
+create table mytesttable (
+rollno int,
+firstname varchar(50),
+lastname varchar(50)
+)
+
+select rollno, firstname, lastname from mytesttable
+
+insert into mytesttable(rollno, firstname, lastname)
+values(1, 'David', 'Murphy')
+
+select rollno, firstname, lastname from mytesttable
+
+SELECT FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+
+
+-----------------------------------------
+-- ADVENTURE WORKS 2012
+-----------------------------------------
+
+use AdventureWorks2012
+
+SELECT * FROM [HumanResources].[Department]
+
+-- SHOW ALL DEPARTMENT NAMES
+SELECT NAME FROM [HumanResources].[Department]
+
+-- SHOW ALL GROUPS
+SELECT GROUPNAME FROM [HumanResources].Department
+
+-- SHOW ALL DISTINCT GROUPNAMES
+SELECT DISTINCT GROUPNAME FROM [HumanResources].Department
+
+-- SHOW ALL DEPARTMENT NAMES WHO ARE PART OF MANUFACTURING (not case sensitive!)
+SELECT NAME, GROUPNAME FROM [HumanResources].Department
+WHERE GROUPNAME LIKE 'MANUFACTURING'
+
+-- SHOW ALL EMPLOYEES FROM THE EMPLOYEE TABLE
+SELECT * FROM [HumanResources].Employee
+
+-- SHOW LIST OF ALL EMPLOYEES WHO HAVE A ORGLEVEL = 2
+SELECT * FROM [HumanResources].Employee WHERE OrganizationLevel = 2
+
+-- SHOW LIST OF ALL EMPLOYEES WHO HAVE ORGLEVEL = 2 OR 3
+SELECT * FROM [HumanResources].Employee WHERE OrganizationLevel IN (2,3)
+
+-- SHOW LIST OF EMPLOYEES WITH TITLE FACILITIES MANAGER
+SELECT * FROM [HumanResources].Employee WHERE JOBTITLE LIKE 'FACILITIES MANAGER'
+
+-- won't work because of whitespace!
+SELECT * FROM [HumanResources].Employee WHERE JOBTITLE LIKE 'FACILITIES MANAGER '
+
+-- SHOW ALL EMPLOYEES WITH MANAGER IN TITLE (% means anything can come before if placed before string, and anything can come after if placed after)
+SELECT * FROM [HumanResources].Employee WHERE JOBTITLE LIKE '%MANAGER'
+
+-- SHOW ALL EMPLOYEES WITH CONTROL IN MIDDLE OF TITLE (% before and after means anything can come before or after)
+SELECT * FROM [HumanResources].Employee WHERE JOBTITLE LIKE '%CONTROL%'
+
+-- SHOW ALL EMPLOYEES WHO ARE BORN AFTER Jan 1, 1980
+SELECT * FROM [HumanResources].Employee WHERE BirthDate > '1/1/1980'
+
+-- SHOW ALL EMPLOYEES WHO ARE BORN BETWEEN Jan 1, 1970 and Jan 1, 1980
+SELECT * FROM [HumanResources].Employee WHERE BirthDate > '1/1/1970' AND BirthDate < '1/1/1980'
+-- or
+SELECT * FROM [HumanResources].Employee WHERE BirthDate BETWEEN '1/1/1970' AND '1/1/1980'
+
+-----------------------------------------
+-- DEEP DIVE
+-----------------------------------------
+SELECT NAME, LISTPRICE FROM [Production].Product
+
+-- ADD NEW COLLUMN THAT ADDS 10 TO VALUE OF EACH LISTPRICE COLUMN
+SELECT NAME, LISTPRICE, LISTPRICE + 10 AS ADJUSTED_LIST_PRICE FROM [Production].[Product]
+
+-- STORE THIS IN SEPARATE TABLE (permanent table)
+-- INTO
+SELECT NAME, LISTPRICE, LISTPRICE + 10 AS ADJUSTED_LIST_PRICE INTO [PRODUCTION].[Product_2] FROM [Production].[Product]
+-- checkout new table!
+SELECT * FROM [Production].Product_2
+
+-- (temporary table; after losing connection to server, and out of the context of this query, the table will delete!)
+SELECT NAME, LISTPRICE, LISTPRICE + 10 AS ADJUSTED_LIST_PRICE INTO #temptable FROM [Production].[Product]
+
+SELECT * FROM #temptable
+
+-- DELETE DATA FROM TABLE: delete row that has "bearing ball"
+DELETE FROM Production.Product_2
+WHERE NAME LIKE 'BEARING BALL'
+
+SELECT * FROM [Production].Product_2
+
+-- UPDATE STATEMENT 
+UPDATE [Production].Product_2
+SET NAME = 'BLADE_NEW'
+WHERE NAME LIKE 'BLADE'
+
+SELECT * FROM [Production].[Product_2]
+
+-----------------------------------------
+-- JOINS
+-----------------------------------------
+-- 3 Types: Inner Join, Outer Join, Cross Join.
+-- 2 different tables, the same column between both tables. There should be at least 1 match between both tables.
+
+-- EmployeeID is common between both tables.
+-- INNER JOIN ONLY JOINS ONLY COMMON ROWS!!! If one table lacks EmployeeID 3, then only EmployeeID 1 & 2 will join.
+
+-- Left outer join: Non-matched entries from right  table will have NULL. Give all rows of table 1, and all commmon rows of table 2. If you don't find a common row, then place null. 
+-- Right outer join: Non-matched entries from left table will have NULL
+-- Full outer join: 
+-- Cross Join: Each row from table 1 will be joined with every row from table 2
+
+CREATE TABLE MYEMPLOYEE (EMPLOYEEID INT, FIRSTNAME VARCHAR(20), LASTNAME VARCHAR(20))
+
+INSERT INTO MYEMPLOYEE VALUES (1, 'Michael', 'Scott')
+INSERT INTO MYEMPLOYEE VALUES (2, 'Pam', 'Beesly')
+INSERT INTO MYEMPLOYEE VALUES (3, 'Dwight', 'Shrute')
+
+SELECT * FROM MYEMPLOYEE
+DELETE MYEMPLOYEE
+
+
+create table MYSALARY (EMPLOYEEID INT, SALARY FLOAT)
+
+INSERT INTO MYSALARY VALUES (1, 10000)
+INSERT INTO MYSALARY VALUES (2, 8000)
+INSERT INTO MYSALARY VALUES (3, 6000)
+
+DELETE FROM MYSALARY
+WHERE EMPLOYEEID = 1 AND EMPLOYEEID = 2 AND EMPLOYEEID = 3
+DELETE MYSALARY
+
+SELECT * FROM MYSALARY
+SELECT * FROM MYEMPLOYEE
+
+-- INNER JOIN
+-- 'a' and 'b' are aliases
+SELECT A.FIRSTNAME, A.LASTNAME, B.SALARY 
+FROM MYEMPLOYEE A INNER JOIN MYSALARY B ON A.EMPLOYEEID = B.EMPLOYEEID
+
+-- OUTER JOIN
+-- LEFT OUTER JOIN: right-table should have null where column values are missing
+CREATE TABLE MYPHONE (EMPLOYEEID INT, PHONENUMBER INT)
+
+INSERT INTO MYPHONE VALUES (1, 1211123342)
+INSERT INTO MYPHONE VALUES (2, 1111111111)
+
+SELECT * FROM MYEMPLOYEE
+SELECT * FROM MYPHONE
+
+SELECT A.FIRSTNAME, A.LASTNAME, B.PHONENUMBER FROM MYEMPLOYEE A LEFT JOIN MYPHONE B
+ON A.EMPLOYEEID = B.EMPLOYEEID
+
+-- RIGHT OUTER JOIN: Left table should have nulls
+CREATE TABLE MYPARKING (EMPLOYEEID INT, PARKINGSPOT VARCHAR(20))
+
+INSERT INTO MYPARKING VALUES (1, 'a1')
+INSERT INTO MYPARKING VALUES (2, 'a2')
+
+SELECT * FROM MYPARKING
+SELECT * FROM MYEMPLOYEE
+
+SELECT A.PARKINGSPOT, B.FIRSTNAME, B.LASTNAME FROM MYPARKING A RIGHT JOIN MYEMPLOYEE B 
+ON A.EMPLOYEEID = B.EMPLOYEEID
+
+-- FULL OUTER JOIN
+CREATE TABLE MYCUSTOMER (CUSTOMERID INT, CUSTOMERNAME VARCHAR(20))
+INSERT INTO MYCUSTOMER VALUES (1, 'RAKESH')
+INSERT INTO MYCUSTOMER VALUES (2, 'DAVID')
+
+CREATE TABLE MYORDER (ORDERNUMBER INT, ORDERNAME VARCHAR(20), CUSTOMERID INT)
+INSERT INTO MYORDER VALUES (1, 'SOMEORDER1', 1)
+INSERT INTO MYORDER VALUES (2, 'SOMEORDER2', 2)
+INSERT INTO MYORDER VALUES (3, 'SOMEORDER3', 7)
+INSERT INTO MYORDER VALUES (4, 'SOMEORDER4', 8)
+
+SELECT * FROM MYCUSTOMER
+SELECT * FROM MYORDER
+
+SELECT A.CUSTOMERID, A.CUSTOMERNAME, B.ORDERNUMBER, B.ORDERNAME
+FROM MYORDER B FULL OUTER JOIN MYCUSTOMER A
+ON A.CUSTOMERID = B.CUSTOMERID
+
+-- CROSS JOIN: 
+SELECT * FROM MYCUSTOMER
+SELECT * FROM MYSALARY
+
+SELECT * FROM MYCUSTOMER CROSS JOIN MYSALARY
+-- SELECT * FROM MYCUSTOMER, MYSALARY
+
+---------------------------------------------
+
+-- GET DATE
+SELECT GETDATE()
+
+SELECT GETDATE() -2 
+
+-- DATEPART
+SELECT DATEPART(yyyy, GETDATE())
+SELECT DATEPART(yyyy, GETDATE()) AS YEARNUMBER
+
+SELECT DATEPART(mm, GETDATE())
+SELECT DATEPART(dd, GETDATE())
+
+-- DATEADD
+SELECT DATEADD(day, 4, GETDATE())
+SELECT DATEADD(day, 4, '7/4/2015')
+
+SELECT DATEADD(month, 4, GETDATE())
+
+-- 
+SELECT TOP 10 * FROM [Production].[WorkOrder] 
+
+SELECT WORKORDERID, PRODUCTID, STARTDATE, ENDDATE, DATEDIFF(DAY, STARTDATE, ENDDATE) AS DIFFERENCEINDAYS
+FROM [Production].[WorkOrder]
+
+SELECT DATEPART(DAY, GETDATE())
+SELECT DATEPART(DAY, GETDATE()-1)
+
+-- add +day part of today's date -1 (if day = 11, add 10)
+SELECT DATEADD(dd, (DATEPART(DAY, GETDATE())-1), GETDATE()) 
+-- subtract day part of today's date -1 (if day = 11, subtract 10)
+SELECT DATEADD(dd, -(DATEPART(DAY, GETDATE())-1), GETDATE()) 
+
+--------------------------
+-- AGGREGATE FUNCITONS
+-- MYSALARY
+SELECT * FROM MYSALARY
+
+SELECT AVG(SALARY) FROM MYSALARY
+SELECT COUNT (SALARY) FROM MYSALARY
+SELECT COUNT(*) FROM MYSALARY
+SELECT MIN(SALARY) FROM MYSALARY
+SELECT MAX(SALARY) FROM MYSALARY
+
+-- MYORDER
+SELECT * FROM MYORDER
+
+-- CONCAT
+print CONCAT('String 1', ' String 2')
+
+SELECT ORDERNUMBER, ORDERNAME, CONCAT(ORDERNAME, ' ', ORDERNAME, RAND()) AS CONCATENATEDTEXT
+FROM MYORDER
+
+-- SELECT FIRST 5 CHARACTERS FROM ORDERNAME
+SELECT ORDERNUMBER, ORDERNAME, LEFT(ORDERNAME, 5) AS FIRST_5_CHARS FROM MYORDER 
+
+-- RIGHT
+SELECT ORDERNUMBER, ORDERNAME, RIGHT(ORDERNAME, 5) AS LAST_5_CHARS FROM MYORDER 
+
+-- SUBSTRING
+SELECT ORDERNUMBER, ORDERNAME, SUBSTRING(ORDERNAME, 3, 5) AS MIDDLE_CHARS FROM MYORDER
+
+-- LOWERCASE
+SELECT ORDERNUMBER, ORDERNAME, LOWER(ORDERNAME) AS LOWERCASE FROM MYORDER
+
+-- UPPERCASE
+SELECT ORDERNUMBER, ORDERNAME, UPPER(ORDERNAME) AS UPPERCASE FROM MYORDER
+
+-- LENGTH
+SELECT ORDERNUMBER, ORDERNAME, LEN(ORDERNAME) STRING_LENGTH FROM MYORDER
+
+-- First upper, rest lower
+SELECT ORDERNAME, ORDERNUMBER, CONCAT(UPPER(LEFT(ORDERNAME, 1)), LOWER(SUBSTRING(ORDERNAME, 2, LEN(ORDERNAME)))) AS FIRST_UPPER_REST_LOWER FROM MYORDER
+
+-- TRIM 
+SELECT '     Mytext     '
+SELECT LEN('     Mytext     ')
+
+-- LTRIM - removes spaces from the left side of text
+SELECT LTRIM('     Mytext     ')
+
+-- RTRIM
+SELECT RTRIM('     Mytext     ')
+
+-- BOTH
+SELECT LTRIM(RTRIM('     Mytext     '))

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Check Box</string>
+    <string name="question">Who\'s Your Favorite Pokemon?</string>
+    <string name="pkachu">Pikachu</string>
+    <string name="charmander">Charmander</string>
+    <string name="bulbasaur">Bulbasaur</string>
+    <string name="squirtle">Squirtle</string>
+    <string name="show_button">Show</string>
+</resources>

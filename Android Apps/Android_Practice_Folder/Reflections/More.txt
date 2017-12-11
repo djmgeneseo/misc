@@ -1,0 +1,12 @@
+Resource folder contains: Images, strings, and styles
+
+Layout: Android stores all layout files in xml. Tags refers to types of view objects in framework. Container views can contain other views. 
+
+setContentView(R.layout.activity_main);
+	- cause xml layout resource to become inflated, convert everything in activity_main xml file into hierarchy of view objects in memory
+
+Touch targets should be at least 48 dp's tall and wide.
+
+Images should be moved into drawable folder, then called in XML as:
+	android:src="@drawable/androidparty"
+

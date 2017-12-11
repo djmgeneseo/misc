@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Button Practice</string>
+    <string name="show_text_button">Push Me</string>
+    <string name="show_text">Hello there!</string>
+</resources>
