@@ -1,0 +1,6 @@
+npm init
+	- Series of questions
+
+npm install --save express
+	- Popular, minimalist web framework for Node.js
+	
